@@ -73,3 +73,47 @@ class Solution:
             prod *= nums[i]
 
         return res
+
+    # 934. The Shortest Bridge.
+    # https://leetcode.com/problems/shortest-bridge/
+    def shortestBridge(a: list[list[int]]) -> int:
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        rl = len(a)
+        cl = len(a[0])
+
+        def get_start_point() -> tuple[int, int]:
+            for r in range(rl):
+                for c in range(cl):
+                    if a[r][c] == 1:
+                        return r, c
+
+        def fill(r: int, c: int) -> None:
+            if not (0 <= r < rl) or not (0 <= c < cl) or a[r][c] != 1:
+                return
+
+            queue.put((r, c))
+            a[r][c] = 2
+
+            for dr, dc in dirs:
+                fill(r + dr, c + dc)
+
+        queue = Queue()
+        sr, sc = get_start_point()
+        fill(sr, sc)
+
+        step = 0
+        while queue:
+            ql = queue.qsize()
+            for i in range(ql):
+                r, c = queue.get()
+                for dr, dc in dirs:
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < rl and 0 <= nc < cl:
+                        if a[nr][nc] == 1:
+                            return step
+                        elif a[nr][nc] == 0:
+                            a[nr][nc] = 2
+                            queue.put((nr, nc))
+            step += 1
+
+        return step

@@ -23,6 +23,15 @@ class SolutionTest(unittest.TestCase):
         for nums, expected in test_cases:
             self.assertEqual(expected, Solution.productExceptSelf(nums))
 
+    def test_shortestBridge(self):
+        test_cases = [
+            ([[0, 1], [1, 0]], 1),
+            ([[0, 1, 0], [0, 0, 0], [0, 0, 1]], 2),
+            ([[1, 1, 1, 1, 1], [1, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 1]], 1)
+        ]
+        for a, expected in test_cases:
+            self.assertEqual(expected, Solution.shortestBridge(a))
+
 
 if __name__ == '__main__':
     unittest.main()
