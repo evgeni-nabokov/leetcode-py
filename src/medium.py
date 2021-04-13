@@ -1,3 +1,5 @@
+from queue import Queue
+
 class Solution:
 
     # 79. Word Search.
@@ -28,7 +30,7 @@ class Solution:
             if i == len(word) - 1:
                 return True
 
-            # Check if we're trying to go the path we went though unsuccessfully before. This check makes the soultion 10 times faster.
+            # Check if we're trying to go the path we went though unsuccessfully before. This check makes the solution 10 times faster.
             if memo[r][c][i] == False:
                 return False
 
@@ -53,3 +55,21 @@ class Solution:
                     return True
 
         return False
+
+    # 238. Product of Array Except Self.
+    # https://leetcode.com/problems/product-of-array-except-self/
+    # Time complexity: O(N).
+    # Space complexity: O(1).
+    def productExceptSelf(nums: list[int]) -> list[int]:
+        n = len(nums)
+
+        res = [1]
+        for i in range(1, n):
+            res.append(res[i - 1] * nums[i - 1])
+
+        prod = 1
+        for i in range(n - 1, -1, -1):
+            res[i] = res[i] * prod
+            prod *= nums[i]
+
+        return res
