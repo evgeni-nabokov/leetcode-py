@@ -117,3 +117,34 @@ class Solution:
             step += 1
 
         return step
+
+    # 1091. Shortest Path in Binary Matrix.
+    # https://leetcode.com/problems/shortest-path-in-binary-matrix/
+    # Time complexity: O(M x N), where M and N are grid dimensions.
+    # Space complexity: O(1).
+    def shortestPathBinaryMatrix(grid: list[list[int]]) -> int:
+        if grid[0][0] == 1 or grid[-1][-1] == 1:
+            return -1
+
+        n = len(grid)
+        if n == 1 and grid[0][0] == 0:
+            return 1
+
+        dirs = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1)]
+        queue = [(0, 0)]
+        grid[0][0] = 1
+        step = 1
+        while queue:
+            step += 1
+            ql = len(queue)
+            for i in range(ql):
+                r, c = queue.pop(0)
+                for dr, dc in dirs:
+                    nr, nc = r + dr, c + dc
+                    if nr == n - 1 and nc == n - 1:
+                        return step
+                    if 0 <= nr < n and 0 <= nc < n and grid[nr][nc] == 0:
+                        queue.append((nr, nc))
+                        grid[nr][nc] = 1
+
+        return -1

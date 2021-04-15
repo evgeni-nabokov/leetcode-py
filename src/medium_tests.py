@@ -32,6 +32,33 @@ class SolutionTest(unittest.TestCase):
         for a, expected in test_cases:
             self.assertEqual(expected, Solution.shortestBridge(a))
 
+    def test_shortestPathBinaryMatrix(self):
+        test_cases = [
+            ([[0]], 1),
+            ([[0, 1], [1, 0]], 2),
+            ([[0, 0, 0], [1, 1, 0], [1, 1, 0]], 4),
+            ([[1, 0, 0], [1, 1, 0], [1, 1, 0]], -1),
+            ([
+                [0, 1, 1, 1, 1, 1, 1, 1],
+                [0, 1, 1, 0, 0, 0, 0, 0],
+                [0, 1, 0, 1, 1, 1, 1, 0],
+                [0, 1, 0, 1, 1, 1, 1, 0],
+                [0, 1, 1, 0, 0, 1, 1, 0],
+                [0, 1, 1, 1, 1, 0, 1, 0],
+                [0, 0, 0, 0, 0, 1, 1, 0],
+                [1, 1, 1, 1, 1, 1, 1, 0]
+            ], 25),
+            ([
+                [0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0],
+                [0, 1, 0, 1, 0],
+                [0, 0, 0, 1, 1],
+                [0, 0, 0, 1, 0]
+            ], -1)
+        ]
+        for a, expected in test_cases:
+            self.assertEqual(expected, Solution.shortestPathBinaryMatrix(a))
+
 
 if __name__ == '__main__':
     unittest.main()
